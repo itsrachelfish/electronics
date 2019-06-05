@@ -1,6 +1,6 @@
 enum PinAssignments {
-    encoderPinA = 2,
-    encoderPinB = 3,
+    encoderPinA = 2, // White
+    encoderPinB = 3, // Green
 };
 
 volatile unsigned int encoderPos = 0;
