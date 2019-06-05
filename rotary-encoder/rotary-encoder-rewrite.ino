@@ -3,8 +3,6 @@ enum EncoderPins {
     pinB = 3, // Green
 };
 
-volatile unsigned int position = 0;
-
 boolean aActive = false;
 boolean bActive = false;
 
@@ -20,7 +18,7 @@ void setup() {
     attachInterrupt(0, aChanged, CHANGE);
     attachInterrupt(1, bChanged, CHANGE);
 
-    Serial.begin(9600);
+    Serial.begin(115200);
 }
 
 
@@ -39,7 +37,6 @@ void loop() {
         clockwise = false;
         counterClockwise = false;
     }
-    //
 }
 
 void aChanged() {
