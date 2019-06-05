@@ -4,10 +4,12 @@ enum EncoderPins {
 };
 
 volatile unsigned int position = 0;
-unsigned int lastPosition = 1;
 
 boolean aActive = false;
 boolean bActive = false;
+
+boolean clockwise = false;
+boolean counterClockwise = false;
 
 void setup() {
     pinMode(pinA, INPUT);
@@ -23,11 +25,21 @@ void setup() {
 
 
 void loop() {
-    if(lastPosition != position) {
-        Serial.print(position, DEC);
-        Serial.println();
-        lastPosition = position;
+    if(clockwise || counterClockwise) {
+        if(clockwise) {
+            Serial.print(1, DEC);
+            Serial.println();
+        }
+
+        if(counterClockwise) {
+            Serial.print(-1, DEC);
+            Serial.println();
+        }
+
+        clockwise = false;
+        counterClockwise = false;
     }
+    //
 }
 
 void aChanged() {
@@ -36,7 +48,7 @@ void aChanged() {
 
         // If A is active and B is already active, we are moving counter clockwise
         if(aActive && bActive) {
-            position--;
+            counterClockwise = true;
         }
     } else {
         aActive = false;
@@ -49,7 +61,7 @@ void bChanged() {
 
         // If B is active and A is already active, we are moving clockwise
         if(aActive && bActive) {
-            position++;
+            clockwise = true;
         }
     } else {
         bActive = false;
