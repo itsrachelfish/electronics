@@ -1,0 +1,14 @@
+{
+  "name": "serialport-test",
+  "version": "0.1.0",
+  "description": "Using javascript to read data from my arduino",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "AGPL-3.0",
+  "dependencies": {
+    "serialport": "^7.1.5"
+  }
+}
