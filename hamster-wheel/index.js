@@ -1,6 +1,7 @@
 const SerialPort = require('serialport');
 const encoder = new SerialPort('/dev/ttyACM0', { baudRate: 115200 });
-const display = new SerialPort('/dev/ttyACM1', { baudRate: 9600 });
+const display1 = new SerialPort('/dev/ttyACM1', { baudRate: 9600 });
+const display2 = new SerialPort('/dev/ttyACM2', { baudRate: 9600 });
 
 const Readline = require('@serialport/parser-readline');
 const parser = new Readline();
@@ -19,19 +20,20 @@ parser.on('data', function(movement) {
         clockwise++;
         buffer = 0;
         console.log(`Clockwise: ${clockwise}`);
-        updateDisplay(clockwise);
+        updateDisplay(display1, clockwise);
     }
 
     if(buffer <= -100) {
         counterClockwise++;
         buffer = 0;
         console.log(`Counter Clockwise: ${counterClockwise}`);
+        updateDisplay(display2, clockwise);
     }
 });
 
-function updateDisplay(score) {
+function updateDisplay(display, score) {
     // Left pad score with zeroes
-    score = ("00"+score).slice(-3);
+    score = ("000"+score).slice(-4);
 
     // Split score into an array of digits
     digits = String(score).split('').reverse();
