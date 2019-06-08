@@ -1,3 +1,4 @@
+//const data = require('./savefile');
 const SerialPort = require('serialport');
 const encoder = new SerialPort('/dev/ttyACM0', { baudRate: 115200 });
 const display1 = new SerialPort('/dev/ttyACM1', { baudRate: 9600 });
@@ -7,27 +8,28 @@ const Readline = require('@serialport/parser-readline');
 const parser = new Readline();
 
 const asciiDigits = [0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39]; // 0 - 9 in ASCII
-let clockwise = 0;
-let counterClockwise = 0;
+let clockwise = 88;
+let counterClockwise = 88;
 let buffer = 0;
 
 encoder.pipe(parser);
 
 parser.on('data', function(movement) {
     buffer += parseInt(movement);
+    let date = new Date();
 
-    if(buffer >= 100) {
+    if(buffer >= 3646) {
         clockwise++;
         buffer = 0;
-        console.log(`Clockwise: ${clockwise}`);
+        console.log(`${date} - Clockwise: ${clockwise}`);
         updateDisplay(display1, clockwise);
     }
 
-    if(buffer <= -100) {
+    if(buffer <= -3646) {
         counterClockwise++;
         buffer = 0;
-        console.log(`Counter Clockwise: ${counterClockwise}`);
-        updateDisplay(display2, clockwise);
+        console.log(`${date} - Counter Clockwise: ${counterClockwise}`);
+        updateDisplay(display2, counterClockwise);
     }
 });
 
