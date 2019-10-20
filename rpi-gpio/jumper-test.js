@@ -1,5 +1,5 @@
 const Gpio = require('onoff').Gpio;
-const left = new Gpio(26, 'out');
+const left = new Gpio(26, 'high');
 const right = new Gpio(20, 'in', 'both');
 
 right.watch((error, value) => {
