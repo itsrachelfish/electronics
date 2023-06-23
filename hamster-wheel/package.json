@@ -9,6 +9,6 @@
   "author": "",
   "license": "AGPL-3.0",
   "dependencies": {
-    "serialport": "^7.1.5"
+    "serialport": "^11.0.0"
   }
 }
